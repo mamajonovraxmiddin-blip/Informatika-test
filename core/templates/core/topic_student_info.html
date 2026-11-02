@@ -1,0 +1,66 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ sinf }}-sinf | Testni boshlash</title>
+    <link rel="stylesheet" href="{% static 'core/style.css' %}">
+</head>
+<body>
+
+<header class="header">
+    <div class="container navbar">
+        <a href="/" class="logo">
+            <span class="logo-icon">&lt;/&gt;</span>
+            <span>INFORMATIKA <b>TEST</b></span>
+        </a>
+    </div>
+</header>
+
+<main class="section">
+    <div class="container">
+        <div class="section-heading">
+            <div>
+                <span class="section-label">INFORMATIKA FANIDAN TEST</span>
+                <h2>{{ sinf }}-sinf <span>test sinovi</span></h2>
+                <p>Testni boshlash uchun ism va familiyangizni kiriting.</p>
+            </div>
+        </div>
+
+        <div class="topic-section">
+            {% if xato %}
+                <div class="coming-note">{{ xato }}</div>
+            {% endif %}
+
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="ism_familiya">Ism va familiya</label>
+                    <input
+                        type="text"
+                        id="ism_familiya"
+                        name="ism_familiya"
+                        placeholder="Masalan: Aliyev Vali"
+                        required
+                        minlength="3"
+                    >
+                </div>
+
+                <button
+                    type="submit"
+                    name="boshlash"
+                    value="1"
+                    class="primary-btn"
+                >
+                    Testni boshlash <span class="arrow">→</span>
+                </button>
+            </form>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

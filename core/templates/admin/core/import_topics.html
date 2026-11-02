@@ -1,0 +1,31 @@
+
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+<div style="max-width: 650px;">
+    <h1>Mavzularni Excel fayldan yuklash</h1>
+
+    <p>
+        Excel faylning birinchi qatorida quyidagi ustunlar bo‘lishi kerak:
+    </p>
+
+    <p><strong>Sinf | Mavzu nomi | Tartib</strong></p>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <div style="margin-top: 20px;">
+            <button type="submit" class="default">
+                Excel faylni yuklash
+            </button>
+
+            <a href="{% url 'admin:core_topic_changelist' %}"
+               style="margin-left: 12px;">
+                Ortga qaytish
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}

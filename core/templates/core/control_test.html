@@ -1,0 +1,82 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ nazorat.get_turi_display }} — {{ sinf }}-sinf</title>
+    <link rel="stylesheet" href="{% static 'core/style.css' %}">
+</head>
+<body>
+
+<header class="header">
+    <div class="container">
+        <a href="/" class="logo">INFORMATIKA<span>TEST</span></a>
+        <a href="/" class="back-link">← Bosh sahifa</a>
+    </div>
+</header>
+
+<main class="control-test-page">
+    <div class="container">
+
+        <div class="test-heading">
+            <span class="section-label">NAZORAT TESTI</span>
+            <h2>{{ nazorat.get_turi_display }}</h2>
+            <p>{{ sinf }}-sinf informatika fani</p>
+            <div class="test-count">
+                Jami savollar: {{ savollar|length }} ta
+            </div>
+        </div>
+
+        <form method="POST" class="control-test-form">
+            {% csrf_token %}
+
+            {% if xato %}
+                <div class="control-empty">
+                    {{ xato }}
+                </div>
+            {% endif %}
+
+            {% for savol in savollar %}
+                <div class="control-question-card">
+
+                    <div class="question-number">
+                        SAVOL {{ forloop.counter }}
+                    </div>
+
+                    <h3>{{ savol.matn }}</h3>
+
+                    <div class="control-answer-list">
+                        {% for javob in savol.aralash_javoblar %}
+                            <label class="control-answer">
+                                <input
+                                    type="radio"
+                                    name="savol_{{ savol.id }}"
+                                    value="{{ javob.id }}"
+                                    required
+                                >
+                                <span class="answer-letter">
+                                    {{ forloop.counter|add:"64"|stringformat:"c" }}
+                                </span>
+                                <span class="answer-text">
+                                    {{ javob.matn }}
+                                </span>
+                            </label>
+                        {% endfor %}
+                    </div>
+
+                </div>
+            {% endfor %}
+
+            <button type="submit" class="control-submit-btn">
+                TESTNI YAKUNLASH →
+            </button>
+
+        </form>
+
+    </div>
+</main>
+
+</body>
+</html>

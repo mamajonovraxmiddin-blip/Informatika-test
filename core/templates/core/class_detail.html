@@ -1,0 +1,161 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ sinf }}-sinf | Informatika Test</title>
+    <link rel="stylesheet" href="{% static 'core/style.css' %}">
+</head>
+<body>
+
+<header class="header">
+    <div class="container navbar">
+        <a href="/" class="logo">
+            <span class="logo-icon">&lt;/&gt;</span>
+            <span>INFORMATIKA <b>TEST</b></span>
+        </a>
+
+        <nav class="nav-links">
+            <a href="/">Bosh sahifa</a>
+            <a href="/#sinflar" class="active">Sinflar</a>
+            <a href="/#imkoniyatlar">Imkoniyatlar</a>
+        </nav>
+
+        <div class="nav-actions">
+            <a href="/admin/" class="login-btn">Kirish</a>
+        </div>
+    </div>
+</header>
+
+<main class="section">
+    <div class="container">
+
+        <a href="/#sinflar" class="secondary-btn">← Sinflarga qaytish</a>
+
+        <div class="section-heading" style="margin-top: 35px;">
+            <div>
+                <span class="section-label">INFORMATIKA FANIDAN TESTLAR</span>
+                <h2>{{ sinf }}-sinf <span>mavzulari</span></h2>
+                <p>O‘zingiz o‘rgangan mavzuni tanlang va bilimingizni sinab ko‘ring.</p>
+            </div>
+        </div>
+
+        <div class="topic-section">
+
+            <div class="topic-heading">
+                <div>
+                    <span class="section-label">O‘TILGAN MAVZULAR</span>
+                    <h2>Test uchun mavzularni <span>tanlang</span></h2>
+                    <p>Test ishlamoqchi bo‘lgan mavzularingizni belgilang.</p>
+                </div>
+            </div>
+        
+            <form id="topicForm" method="POST" action="{% url 'topic_test_start' sinf=sinf %}">
+                {% csrf_token %}
+
+                {% if xato %}
+                    <div class="error-message">
+                        {{ xato }}
+                    </div>
+                {% endif %}
+                
+                <div class="topic-list">
+                    {% for mavzu in mavzular %}
+                    <label class="topic-item">
+        
+                        <input
+                            type="checkbox"
+                            name="mavzular"
+                            value="{{ mavzu.id }}"
+                            class="topic-checkbox"
+                        >
+        
+                        <span class="custom-checkbox"></span>
+        
+                        <span class="topic-number">
+                            {{ forloop.counter|stringformat:"02d" }}
+                        </span>
+        
+                        <span class="topic-info">
+                            <strong>{{ mavzu.nomi }}</strong>
+                            <small>
+                                {{ mavzu.tavsif|default:"Ushbu mavzu bo‘yicha bilimlaringizni sinang." }}
+                            </small>
+                        </span>
+        
+                        <span class="topic-arrow">›</span>
+        
+                    </label>
+        
+                    {% empty %}
+                    <div class="coming-note">
+                        <span class="note-icon">i</span>
+                        <span>Bu sinf uchun mavzular hali kiritilmagan.</span>
+                    </div>
+                    {% endfor %}
+        
+                </div>
+        
+                {% if mavzular %}
+                <div class="topic-selection-info">
+                    <span id="selectedCount">0 ta mavzu tanlandi</span>
+                    <span id="testCount">Testlar soni: —</span>
+                </div>
+        
+                <button type="submit" class="primary-btn" id="startTestBtn" disabled>
+                    Testni boshlash <span class="arrow">→</span>
+                </button>
+                {% endif %}
+        
+            </form>
+        </div>
+        
+        <script>
+            const checkboxes = document.querySelectorAll(".topic-checkbox");
+            const selectedCount = document.getElementById("selectedCount");
+            const testCount = document.getElementById("testCount");
+            const startButton = document.getElementById("startTestBtn");
+        
+            function updateSelection() {
+                const count = document.querySelectorAll(
+                    ".topic-checkbox:checked"
+                ).length;
+        
+                selectedCount.textContent = count + " ta mavzu tanlandi";
+        
+                if (count === 0) {
+                    testCount.textContent = "Testlar soni: —";
+                } else if (count === 1) {
+                    testCount.textContent = "Testlar soni: 10 ta";
+                } else {
+                    testCount.textContent = "Testlar soni: 20 ta";
+                }
+        
+                startButton.disabled = count === 0;
+            }
+        
+            checkboxes.forEach(function (checkbox) {
+                checkbox.addEventListener("change", updateSelection);
+            });
+        </script>
+            
+            
+        
+
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="container footer-inner">
+        <a href="/" class="logo footer-logo">
+            <span class="logo-icon">&lt;/&gt;</span>
+            <span>INFORMATIKA <b>TEST</b></span>
+        </a>
+        <p>Bilim — kelajak kaliti.</p>
+        <span class="copyright">© 2026 Informatika Test</span>
+    </div>
+</footer>
+
+</body>
+</html>

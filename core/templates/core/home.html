@@ -1,0 +1,423 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Asaka tumani 48-maktab | Bilim sari yo‘l</title>
+    <meta name="description" content="Asaka tumani 48-maktab o‘quvchilari uchun fanlardan zamonaviy onlayn test platformasi.">
+
+    <link rel="stylesheet" href="{% static 'core/style.css' %}">
+</head>
+
+<body>
+
+<header class="header">
+    <div class="container navbar">
+
+        <a href="/" class="logo">
+            <span>ASAKA TUMANI <b>48-MAKTAB</b></span>
+        </a>
+
+        <nav class="nav-links">
+            <a href="/" class="active">⌂ Bosh sahifa</a>
+            <a href="#sinflar">▦ Sinflar</a>
+            <a href="#imkoniyatlar">▥ Imkoniyatlar</a>
+            <a href="#aloqa">✉ Aloqa</a>
+        </nav>
+
+        <div class="nav-actions">
+            <a href="/admin/" class="login-btn">Kirish</a>
+        </div>
+
+        <button class="menu-toggle" id="menuToggle"
+                aria-label="Menyuni ochish">☰</button>
+    </div>
+
+    <nav class="mobile-nav" id="mobileNav">
+        <a href="/">Bosh sahifa</a>
+        <a href="#sinflar">Sinflar</a>
+        <a href="#imkoniyatlar">Imkoniyatlar</a>
+        <a href="#aloqa">Aloqa</a>
+        <a href="/admin/">Administrator</a>
+    </nav>
+</header>
+
+
+<main>
+
+           
+<section class="hero hero-v2">
+    <div class="container hero-v2-layout">
+
+        <div class="hero-v2-content">
+            
+            <h1>
+                Bilim sari
+                <span>dadil qadam!</span>
+            </h1>
+
+            <p class="hero-v2-description">
+                Fanlardan mavzuli va nazorat testlari.
+                O‘zingizni sinang, natijangizni biling va
+                bilimlaringizni yanada mustahkamlang.
+            </p>
+
+            <div class="hero-v2-actions">
+                <a href="#sinflar" class="hero-v2-primary">
+                    Testni boshlash
+                    <span>→</span>
+                </a>
+
+                <a href="#nazorat" class="hero-v2-secondary">
+                    Nazorat ishlari
+                </a>
+            </div>
+
+            <div class="hero-v2-stats">
+                <div class="hero-v2-stat">
+                    <strong>07</strong>
+                    <span>ta sinf</span>
+                </div>
+
+                <div class="hero-v2-stat-line"></div>
+
+                <div class="hero-v2-stat">
+                    <strong>10+</strong>
+                    <span>test imkoniyati</span>
+                </div>
+
+                <div class="hero-v2-stat-line"></div>
+
+                <div class="hero-v2-stat">
+                    <strong>24/7</strong>
+                    <span>onlayn foydalanish</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-v2-visual">
+            <div class="quiz-card">
+                <div class="quiz-card-header">
+                    <div>
+                        <span class="quiz-overline">BILIMINGIZNI SINANG</span>
+                        <h3>Namunaviy test</h3>
+                    </div>
+                    <span class="quiz-number">01 / 10</span>
+                </div>
+
+                <div class="quiz-progress">
+                    <span></span>
+                </div>
+
+                <div class="quiz-question">
+                    <span class="quiz-category">NAMUNAVIY TEST · 7-SINF</span>
+                    <h3>Qaysi fanni yoqtirasiz?</h3>
+                </div>
+
+                <div class="quiz-options">
+                    <div class="quiz-option">
+                        <span>A</span>
+                        <p>Informatika</p>
+                    </div>
+
+                    <div class="quiz-option selected">
+                        <span>B</span>
+                        <p>Matematika</p>
+                        <span class="quiz-check">✓</span>
+                    </div>
+
+                    <div class="quiz-option">
+                        <span>C</span>
+                        <p>Ingliz-tili</p>
+                    </div>
+
+                    <div class="quiz-option">
+                        <span>D</span>
+                        <p>Kimyo</p>
+                    </div>
+                </div>
+
+                <div class="quiz-card-footer">
+                    <span>Bilim — muvaffaqiyat kaliti</span>
+                    <span class="quiz-footer-icon">✦</span>
+                </div>
+            </div>
+
+            <div class="hero-v2-note">
+                <span class="hero-note-icon">✓</span>
+                <div>
+                    <strong>Natijangizni biling</strong>
+                    <span>Har bir testdan so‘ng</span>
+                </div>
+            </div>
+
+            <div class="hero-v2-decoration">01</div>
+        </div>
+
+    </div>
+</section>
+
+   
+    <section class="classes section" id="sinflar">
+        <div class="container">
+
+            <div class="section-heading">
+                <div>
+                    <span class="section-label">BILIM OLISHNI BOSHLANG</span>
+                    <h2>Sinflarni <span>tanlang.</span></h2>
+                    <p>O‘z sinfingizni tanlang va informatika bilimlaringizni sinab ko‘ring.</p>
+                </div>
+
+                <div class="section-counter">
+                    <span class="counter-number">07</span>
+                    <span>TA SINF<br>5–11-SINF</span>
+                </div>
+            </div>
+
+
+            <div class="class-grid">
+
+                <a href="/sinf/5/" class="class-card card-blue">
+                    <div class="card-top">
+                        <span class="class-number">01 / CLASS</span>
+                        <span class="class-symbol">▤</span>
+                    </div>
+                    <div class="class-icon">▣</div>
+                    <h3>5-sinf</h3>
+                    <p>Informatika asoslari</p>
+                    <div class="card-bottom">
+                        <span>Bilim olish</span><span>↗</span>
+                    </div>
+                </a>
+
+                <a href="/sinf/6/" class="class-card card-blue">
+                    <div class="card-top">
+                        <span class="class-number">02 / CLASS</span>
+                        <span class="class-symbol">▤</span>
+                    </div>
+                    <div class="class-icon">▱</div>
+                    <h3>6-sinf</h3>
+                    <p>Kompyuter va axborot</p>
+                    <div class="card-bottom">
+                        <span>Bilim olish</span><span>↗</span>
+                    </div>
+                </a>
+
+                <a href="/sinf/7/" class="class-card card-blue">
+                    <div class="card-top">
+                        <span class="class-number">03 / CLASS</span>
+                        <span class="class-symbol">▤</span>
+                    </div>
+                    <div class="class-icon">{ }</div>
+                    <h3>7-sinf</h3>
+                    <p>Algoritmlar</p>
+                    <div class="card-bottom">
+                        <span>Bilim olish</span><span>↗</span>
+                    </div>
+                </a>
+
+                <a href="/sinf/8/" class="class-card card-blue">
+                    <div class="card-top">
+                        <span class="class-number">04 / CLASS</span>
+                        <span class="class-symbol">▤</span>
+                    </div>
+                    <div class="class-icon">&lt;/&gt;</div>
+                    <h3>8-sinf</h3>
+                    <p>Dasturlash asoslari</p>
+                    <div class="card-bottom">
+                        <span>Bilim olish</span><span>↗</span>
+                    </div>
+                </a>
+
+                <a href="/sinf/9/" class="class-card card-blue">
+                    <div class="card-top">
+                        <span class="class-number">05 / CLASS</span>
+                        <span class="class-symbol">▤</span>
+                    </div>
+                    <div class="class-icon">▤</div>
+                    <h3>9-sinf</h3>
+                    <p>Ma’lumotlar bazasi</p>
+                    <div class="card-bottom">
+                        <span>Bilim olish</span><span>↗</span>
+                    </div>
+                </a>
+
+                <a href="/sinf/10/" class="class-card card-blue">
+                    <div class="card-top">
+                        <span class="class-number">06 / CLASS</span>
+                        <span class="class-symbol">▤</span>
+                    </div>
+                    <div class="class-icon">▣</div>
+                    <h3>10-sinf</h3>
+                    <p>Web va tarmoqlar</p>
+                    <div class="card-bottom">
+                        <span>Bilim olish</span><span>↗</span>
+                    </div>
+                </a>
+
+                <a href="/sinf/11/" class="class-card card-blue">
+                    <div class="card-top">
+                        <span class="class-number">07 / CLASS</span>
+                        <span class="class-symbol">▤</span>
+                    </div>
+                    <div class="class-icon">⚙</div>
+                    <h3>11-sinf</h3>
+                    <p>Yuqori darajadagi bilimlar</p>
+                    <div class="card-bottom">
+                        <span>Bilim olish</span><span>↗</span>
+                    </div>
+                </a>
+
+            </div>
+
+            <div class="coming-note">
+                <span class="note-icon">i</span>
+                <span>Sinflar bo‘limi tayyorlanmoqda. Test mavzulari administrator orqali qo‘shiladi.</span>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- NAZORAT ISHLARI -->
+    <section class="control-section section" id="nazorat">
+        <div class="container">
+
+            <div class="section-heading">
+                <div>
+                    <span class="section-label">BILIMINGIZNI SINOVDAN O‘TKAZING</span>
+                    <h2>Nazorat <span>ishlari.</span></h2>
+                    <p>Choraklik va yillik nazorat testlari orqali bilimlaringizni tekshiring.</p>
+                </div>
+
+                <div class="section-counter">
+                    <span class="counter-number">{{ nazorat_turlari|length }}</span>
+                    <span>TA NAZORAT<br>TURI</span>
+                </div>
+            </div>
+
+            <div class="control-grid">
+                {% for nazorat in nazorat_turlari %}
+                    <a href="/nazorat/{{ nazorat.turi }}/"
+                       class="control-card">
+
+                        <div class="control-card-top">
+                            <span class="control-label">NAZORAT TESTI</span>
+                            <span class="control-symbol">▤</span>
+                        </div>
+
+                        <div class="control-icon">
+                            {% if nazorat.turi == "yillik" %}
+                                ★
+                            {% else %}
+                                {{ forloop.counter|stringformat:"02d" }}
+                            {% endif %}
+                        </div>
+
+                        <h3>{{ nazorat.nomi }}</h3>
+
+                        <p>
+                            {% if nazorat.turi == "yillik" %}
+                                Yil davomida o‘zlashtirilgan bilimlarni sinash
+                            {% else %}
+                                Chorak yakunidagi bilimlarni tekshirish
+                            {% endif %}
+                        </p>
+
+                        <div class="control-card-bottom">
+                            <span>Testni tanlash</span>
+                            <span>↗</span>
+                        </div>
+                    </a>
+                {% empty %}
+                    <div class="control-empty">
+                        Hozircha nazorat testlari joylashtirilmagan.
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </section>
+    
+    <section class="features section" id="imkoniyatlar">
+        <div class="container">
+
+            <div class="section-heading centered">
+                <span class="section-label">PLATFORMAMIZ IMKONIYATLARI</span>
+                <h2>Bilimni sinashning <span>yangi usuli.</span></h2>
+                <p>O‘rganing, mashq qiling va natijalaringizni kuzating.</p>
+            </div>
+
+            <div class="feature-grid">
+
+                <div class="feature-card">
+                    <div class="feature-icon icon-blue">⌘</div>
+                    <h3>Mavzuli testlar</h3>
+                    <p>Har bir sinf va mavzu bo‘yicha bilimlarni tekshirish imkoniyati.</p>
+                    <span class="feature-tag">01 — O‘RGANISH</span>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon icon-cyan">▥</div>
+                    <h3>Natijalar tahlili</h3>
+                    <p>To‘g‘ri javoblar, ballar va test natijalarini ko‘rish.</p>
+                    <span class="feature-tag">02 — TAHLIL</span>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon icon-purple">◈</div>
+                    <h3>Shaxsiy kabinet</h3>
+                    <p>Har bir o‘quvchining shaxsiy natijalari va urinishlarini saqlash.</p>
+                    <span class="feature-tag">03 — RIVOJLANISH</span>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon icon-orange">⌁</div>
+                    <h3>Qulay foydalanish</h3>
+                    <p>Kompyuter, planshet va mobil telefonlarda foydalanish.</p>
+                    <span class="feature-tag">04 — QULAYLIK</span>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</main>
+
+
+<footer class="footer" id="aloqa">
+    <div class="container footer-inner">
+
+        <a href="/" class="logo footer-logo">
+            <span class="logo-icon">&lt;/&gt;</span>
+            <span>INFORMATIKA <b>TEST</b></span>
+        </a>
+
+        <p>Bilim — kelajak kaliti.</p>
+
+        <span class="copyright">
+            © 2026 Informatika Test
+        </span>
+
+    </div>
+</footer>
+
+
+<script>
+    const menuToggle = document.getElementById("menuToggle");
+    const mobileNav = document.getElementById("mobileNav");
+
+    menuToggle.addEventListener("click", function () {
+        mobileNav.classList.toggle("show");
+    });
+
+    document.querySelectorAll(".mobile-nav a").forEach(function (link) {
+        link.addEventListener("click", function () {
+            mobileNav.classList.remove("show");
+        });
+    });
+</script>
+
+</body>
+</html>

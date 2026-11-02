@@ -1,0 +1,57 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ nazorat_nomi }} — Informatika Test</title>
+    <link rel="stylesheet" href="{% static 'core/style.css' %}">
+</head>
+<body>
+
+<header class="header">
+    <div class="container">
+        <a href="/" class="logo">INFORMATIKA<span>TEST</span></a>
+        <a href="/" class="back-link">← Bosh sahifa</a>
+    </div>
+</header>
+
+<main class="control-grade-page">
+    <div class="container">
+
+        <div class="section-heading">
+            <div>
+                <span class="section-label">SINfni TANLANG</span>
+                <h2>{{ nazorat_nomi }}<span>.</span></h2>
+                <p>Nazorat testini topshirish uchun sinfingizni tanlang.</p>
+            </div>
+
+            <div class="section-counter">
+                <span class="counter-number">{{ nazorat_sinflari|length }}</span>
+                <span>TA<br>SINF</span>
+            </div>
+        </div>
+
+        <div class="control-grade-grid">
+            {% for nazorat in nazorat_sinflari %}
+                <a href="/nazorat/{{ nazorat_turi }}/{{ nazorat.sinf }}/"
+                   class="control-grade-card">
+
+                    <span class="grade-number">{{ nazorat.sinf }}</span>
+                    <span class="grade-text">SINF</span>
+                    <span class="grade-arrow">↗</span>
+
+                </a>
+            {% empty %}
+                <div class="control-empty">
+                    Hozircha bu nazorat turi uchun testlar joylashtirilmagan.
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</main>
+
+</body>
+</html>

@@ -1,0 +1,75 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}48-maktab | Boshqaruv paneli{% endblock %}
+
+{% block branding %}
+<div id="site-name">
+    <a href="{% url 'admin:index' %}">
+        ASAKA TUMANI 48-MAKTAB
+    </a>
+</div>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
+
+{% block extrastyle %}
+    {{ block.super }}
+    <style>
+        #header {
+            background: #172554;
+            color: #fff;
+            padding: 18px 30px;
+        }
+
+        #site-name a {
+            color: #fff !important;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        #user-tools {
+            color: #dbeafe;
+        }
+
+        #user-tools a {
+            color: #fff;
+        }
+
+        .module caption,
+        .module h2 {
+            background: #1e40af;
+        }
+
+        div.breadcrumbs {
+            background: #eff6ff;
+            color: #1e3a8a;
+            padding: 12px 30px;
+        }
+
+        .button,
+        input[type=submit],
+        input[type=button],
+        .submit-row input {
+            background: #2563eb;
+            border-radius: 6px;
+        }
+
+        .button:hover,
+        input[type=submit]:hover,
+        input[type=button]:hover {
+            background: #1d4ed8;
+        }
+
+        #content {
+            padding: 25px 30px;
+        }
+
+        .module {
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+    </style>
+{% endblock %}

@@ -1,0 +1,11 @@
+
+{% extends "admin/change_list.html" %}
+
+{% block object-tools-items %}
+    <li>
+        <a href="{% url 'admin:core_topic_import_excel' %}" class="addlink">
+            Excel fayldan mavzularni yuklash
+        </a>
+    </li>
+    {{ block.super }}
+{% endblock %}

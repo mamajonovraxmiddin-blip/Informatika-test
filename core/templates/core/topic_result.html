@@ -1,0 +1,128 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test natijasi | Informatika Test</title>
+    <link rel="stylesheet" href="{% static 'core/style.css' %}">
+</head>
+<body>
+
+<header class="header">
+    <div class="container navbar">
+        <a href="/" class="logo">
+            <span class="logo-icon">&lt;/&gt;</span>
+            <span>INFORMATIKA <b>TEST</b></span>
+        </a>
+    </div>
+</header>
+
+<main class="section">
+    <div class="container">
+
+        <div class="section-heading">
+            <div>
+                <span class="section-label">TEST YAKUNLANDI</span>
+                <h2>Test <span>natijasi</span></h2>
+                <p>Hurmatli {{ ism_familiya }}, testni muvaffaqiyatli yakunladingiz!</p>
+            </div>
+        </div>
+
+        <div class="topic-section">
+
+            <div style="text-align:center; padding:30px 15px;">
+
+                <span class="section-label">SIZNING NATIJANGIZ</span>
+
+                <h1 style="font-size:64px; margin:20px 0;">
+                    {{ ball }}<span style="font-size:30px;">/100</span>
+                </h1>
+
+                <h2>
+                    {% if ball >= 86 %}
+                        <span style="color:#22c55e;">Ajoyib natija!</span>
+                    {% elif ball >= 70 %}
+                        <span style="color:#eab308;">Yaxshi natija!</span>
+                    {% else %}
+                        <span style="color:#ef4444;">Yana mashq qiling!</span>
+                    {% endif %}
+                </h2>
+
+            </div>
+
+            <div class="topic-list">
+
+                <div class="topic-item">
+                    <span class="topic-info">
+                        <strong>O‘quvchi</strong>
+                    </span>
+                    <strong>{{ ism_familiya }}</strong>
+                </div>
+
+                <div class="topic-item">
+                    <span class="topic-info">
+                        <strong>Sinf</strong>
+                    </span>
+                    <strong>{{ sinf }}-sinf</strong>
+                </div>
+
+                <div class="topic-item">
+                    <span class="topic-info">
+                        <strong>Jami savollar</strong>
+                    </span>
+                    <strong>{{ jami_savollar }}</strong>
+                </div>
+
+                <div class="topic-item">
+                    <span class="topic-info">
+                        <strong>To‘g‘ri javoblar</strong>
+                    </span>
+                    <strong style="color:#22c55e;">{{ togri_javoblar }}</strong>
+                </div>
+
+                <div class="topic-item">
+                    <span class="topic-info">
+                        <strong>Xato javoblar</strong>
+                    </span>
+                    <strong style="color:#ef4444;">{{ xato_javoblar }}</strong>
+                </div>
+
+                <div class="topic-item">
+                    <span class="topic-info">
+                        <strong>Yakuniy ball</strong>
+                    </span>
+                    <strong>{{ ball }} / 100</strong>
+                </div>
+
+            </div>
+
+            <div style="margin-top:30px; text-align:center;">
+                <a href="{% url 'class_detail' sinf=sinf %}" class="secondary-btn">
+                    Yana test ishlash
+                </a>
+
+                <a href="{% url 'home' %}" class="primary-btn">
+                    Bosh sahifaga qaytish →
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="container footer-inner">
+        <a href="/" class="logo footer-logo">
+            <span class="logo-icon">&lt;/&gt;</span>
+            <span>INFORMATIKA <b>TEST</b></span>
+        </a>
+        <p>Bilim — kelajak kaliti.</p>
+        <span class="copyright">© 2026 Informatika Test</span>
+    </div>
+</footer>
+
+</body>
+</html>

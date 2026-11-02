@@ -1,0 +1,27 @@
+
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+<div style="max-width: 650px;">
+    <h1>Nazorat testlariga savollar yuklash</h1>
+
+    <p>
+        Kerakli sinf va nazorat turini tanlang.
+        So‘ng DOCX formatidagi Word faylni yuklang.
+    </p>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit" class="default">
+            Testlarni yuklash
+        </button>
+
+        <a href="{% url 'admin:core_controltest_changelist' %}"
+           style="margin-left: 12px;">
+            Ortga qaytish
+        </a>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,98 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ sinf }}-sinf | Test jarayoni</title>
+    <link rel="stylesheet" href="{% static 'core/style.css' %}">
+</head>
+<body>
+
+<header class="header">
+    <div class="container navbar">
+        <a href="/" class="logo">
+            <span class="logo-icon">&lt;/&gt;</span>
+            <span>INFORMATIKA <b>TEST</b></span>
+        </a>
+    </div>
+</header>
+
+<main class="section">
+    <div class="container">
+
+        <div class="section-heading">
+            <div>
+                <span class="section-label">INFORMATIKA FANIDAN TEST</span>
+                <h2>{{ sinf }}-sinf <span>test sinovi</span></h2>
+                <p>Har bir savol uchun bitta to‘g‘ri javobni belgilang.</p>
+            </div>
+        </div>
+
+        <div class="topic-section">
+
+            <div class="topic-heading">
+                <div>
+                    <span class="section-label">TEST JARAYONI</span>
+                    <h2>{{ savollar|length }} ta <span>savol</span></h2>
+                </div>
+            </div>
+
+            {% if xato %}
+                <div class="coming-note">{{ xato }}</div>
+            {% endif %}
+
+            <form method="POST">
+                {% csrf_token %}
+
+                {% for savol in savollar %}
+                    <div class="topic-item" style="display:block; margin-bottom:18px;">
+
+                        <h3 style="margin-bottom:15px;">
+                            {{ forloop.counter }}. {{ savol.matn }}
+                        </h3>
+
+                        {% for javob in savol.aralash_javoblar %}
+                            <label style="display:flex; align-items:flex-start; gap:12px; padding:10px 0; cursor:pointer;">
+                                <input
+                                    type="radio"
+                                    name="savol_{{ savol.id }}"
+                                    value="{{ javob.id }}"
+                                    style="margin-top:4px;"
+                                >
+                                <span>{{ javob.matn }}</span>
+                            </label>
+                        {% endfor %}
+
+                    </div>
+                {% endfor %}
+
+                <button
+                    type="submit"
+                    name="yakunlash"
+                    value="1"
+                    class="primary-btn"
+                >
+                    Testni yakunlash <span class="arrow">→</span>
+                </button>
+
+            </form>
+        </div>
+
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="container footer-inner">
+        <a href="/" class="logo footer-logo">
+            <span class="logo-icon">&lt;/&gt;</span>
+            <span>INFORMATIKA <b>TEST</b></span>
+        </a>
+        <p>Bilim — kelajak kaliti.</p>
+        <span class="copyright">© 2026 Informatika Test</span>
+    </div>
+</footer>
+
+</body>
+</html>

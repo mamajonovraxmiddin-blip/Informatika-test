@@ -1,0 +1,131 @@
+
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+
+<div style="max-width: 650px; margin: 25px auto;">
+
+    <h1>Testlarni fayldan yuklash</h1>
+
+    <p style="color: #666; margin-bottom: 25px;">
+        DOCX yoki PDF formatidagi test faylini yuklang.
+        Savollar tanlangan mavzuga biriktiriladi.
+    </p>
+
+    <form method="post"
+          enctype="multipart/form-data"
+          style="background: var(--body-bg);
+                 padding: 25px;
+                 border: 1px solid var(--border-color);
+                 border-radius: 10px;">
+
+        {% csrf_token %}
+
+        {% if form.errors %}
+            <div class="errornote">
+                Iltimos, xatolarni tekshiring.
+            </div>
+        {% endif %}
+
+        {% for field in form %}
+            <div style="margin-bottom: 22px;">
+
+                <label for="{{ field.id_for_label }}"
+                       style="display: block;
+                              font-weight: bold;
+                              margin-bottom: 8px;">
+                    {{ field.label }}
+                </label>
+
+                {{ field }}
+
+                {% if field.help_text %}
+                    <p style="color: #666;">
+                        {{ field.help_text }}
+                    </p>
+                {% endif %}
+
+                {% for error in field.errors %}
+                    <p style="color: red;">{{ error }}</p>
+                {% endfor %}
+
+            </div>
+        {% endfor %}
+
+        <button type="submit"
+                class="default"
+                style="padding: 10px 25px;
+                       border-radius: 6px;">
+            Faylni yuklash
+        </button>
+
+        <a href="../"
+           style="margin-left: 15px;">
+            Orqaga
+        </a>
+
+    </form>
+
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const sinfSelect = document.getElementById("id_sinf");
+        const topicSelect = document.getElementById("id_topic");
+    
+        const topicUrl = "{% url 'admin:core_question_topic_options' %}";
+    
+        function loadTopics() {
+            const sinf = sinfSelect.value;
+    
+            topicSelect.innerHTML = '<option value="">Mavzular yuklanmoqda...</option>';
+            topicSelect.disabled = true;
+    
+            if (!sinf) {
+                topicSelect.innerHTML =
+                    '<option value="">Avval sinfni tanlang</option>';
+                return;
+            }
+    
+            fetch(topicUrl + "?sinf=" + encodeURIComponent(sinf))
+                .then(response => response.json())
+                .then(data => {
+                    topicSelect.innerHTML =
+                        '<option value="">Mavzuni tanlang</option>';
+    
+                    if (data.topics.length === 0) {
+                        topicSelect.innerHTML =
+                            '<option value="">Bu sinfda mavzular mavjud emas</option>';
+                    }
+    
+                    data.topics.forEach(topic => {
+                        const option = document.createElement("option");
+                        option.value = topic.id;
+                        option.textContent = topic.nomi;
+                        topicSelect.appendChild(option);
+                    });
+    
+                    topicSelect.disabled = false;
+                })
+                .catch(error => {
+                    topicSelect.innerHTML =
+                        '<option value="">Mavzularni yuklashda xatolik</option>';
+    
+                    console.error(error);
+                });
+        }
+    
+        sinfSelect.addEventListener("change", loadTopics);
+    
+        if (sinfSelect.value) {
+            loadTopics();
+        } else {
+            topicSelect.innerHTML =
+                '<option value="">Avval sinfni tanlang</option>';
+            topicSelect.disabled = true;
+        }
+    });
+    </script>
+   
+
+{% endblock %}

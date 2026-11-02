@@ -1,0 +1,75 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test natijasi — Informatika Test</title>
+    <link rel="stylesheet" href="{% static 'core/style.css' %}">
+</head>
+<body>
+
+<header class="header">
+    <div class="container">
+        <a href="/" class="logo">INFORMATIKA<span>TEST</span></a>
+        <a href="/" class="back-link">← Bosh sahifa</a>
+    </div>
+</header>
+
+<main class="control-result-page">
+    <div class="container">
+
+        <div class="result-card">
+
+            <span class="section-label">TEST YAKUNLANDI</span>
+
+            <h2>{{ nazorat.get_turi_display }}</h2>
+            <p>{{ sinf }}-sinf informatika fani</p>
+            <p>O‘quvchi: <strong>{{ ism_familiya }}</strong></p>
+
+            <div class="result-score">
+                <span class="score-number">{{ ball }}</span>
+                <span class="score-unit">BALL</span>
+            </div>
+
+            <div class="result-status">
+                {% if ball >= 90 %}
+                    Ajoyib natija!
+                {% elif ball >= 70 %}
+                    Yaxshi natija!
+                {% elif ball >= 50 %}
+                    Qoniqarli natija!
+                {% else %}
+                    Yana mashq qiling!
+                {% endif %}
+            </div>
+
+            <div class="result-details">
+                <div class="result-detail-item">
+                    <span>{{ jami_savollar }}</span>
+                    <small>JAMI SAVOLLAR</small>
+                </div>
+
+                <div class="result-detail-item">
+                    <span>{{ togri_javoblar }}</span>
+                    <small>TO‘G‘RI JAVOBLAR</small>
+                </div>
+
+                <div class="result-detail-item">
+                    <span>{{ xato_javoblar }}</span>
+                    <small>XATO JAVOBLAR</small>
+                </div>
+            </div>
+
+            <a href="/" class="result-home-btn">
+                BOSH SAHIFAGA QAYTISH →
+            </a>
+
+        </div>
+
+    </div>
+</main>
+
+</body>
+</html>

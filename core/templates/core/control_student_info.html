@@ -1,0 +1,63 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O‘quvchi ma’lumotlari — Informatika Test</title>
+    <link rel="stylesheet" href="{% static 'core/style.css' %}">
+</head>
+<body>
+
+<header class="header">
+    <div class="container">
+        <a href="/" class="logo">INFORMATIKA<span>TEST</span></a>
+        <a href="/" class="back-link">← Bosh sahifa</a>
+    </div>
+</header>
+
+<main class="control-result-page">
+    <div class="container">
+
+        <div class="result-card student-info-card">
+            <span class="section-label">TEST TOPSHIRISH</span>
+
+            <h2>{{ nazorat.get_turi_display }}</h2>
+            <p>{{ sinf }}-sinf informatika fani</p>
+
+            <form method="POST" class="student-info-form">
+                {% csrf_token %}
+
+                <label for="ism_familiya">Ism va familiyangizni kiriting</label>
+
+                <input
+                    type="text"
+                    id="ism_familiya"
+                    name="ism_familiya"
+                    placeholder="Masalan: Aliyev Vali"
+                    maxlength="200"
+                    required
+                    autocomplete="name"
+                >
+
+                {% if xato %}
+                    <div class="control-empty">{{ xato }}</div>
+                {% endif %}
+
+                <button
+                    type="submit"
+                    name="boshlash"
+                    value="1"
+                    class="control-submit-btn"
+                >
+                    TESTNI BOSHLASH →
+                </button>
+            </form>
+        </div>
+
+    </div>
+</main>
+
+</body>
+</html>
