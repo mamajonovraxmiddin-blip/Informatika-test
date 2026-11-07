@@ -12,9 +12,45 @@ from openpyxl.styles import (
 )
 
 from .models import (
-    Topic, Question, Answer, ControlTest, StudentResult
+    Topic,
+    Question,
+    Answer,
+    ControlTest,
+    StudentResult,
+    QuestionContentBlock,
 )
 
+
+def save_question_details(question, item):
+    # Savol matni, rasmlari va jadvallarini saqlash
+    for index, block in enumerate(
+        item.get("blocks", []),
+        start=1
+    ):
+        QuestionContentBlock.objects.create(
+            question=question,
+            turi=block["turi"],
+            matn=block.get("matn", ""),
+            rasm=block.get("rasm"),
+            rasm_turi=block.get("rasm_turi", ""),
+            tartib=index
+        )
+
+    # Javob variantlari va ularning rasmlarini saqlash
+    Answer.objects.bulk_create([
+        Answer(
+            question=question,
+            matn=answer["matn"],
+            togri=answer["togri"],
+            tartib=answer_index,
+            rasm=answer.get("rasm"),
+            rasm_turi=answer.get("rasm_turi", "")
+        )
+        for answer_index, answer in enumerate(
+            item["answers"],
+            start=1
+        )
+    ])
 
 # =====================================================
 # FORMLAR
@@ -64,6 +100,59 @@ class TopicExcelImportForm(forms.Form):
         help_text="Ustunlar: Sinf, Mavzu nomi, Tartib"
     )
 
+def save_imported_questions(
+    parsed_questions,
+    topic=None,
+    control_test=None
+):
+    if topic is None and control_test is None:
+        raise ValueError("Mavzu yoki nazorat testi tanlanishi kerak.")
+
+    if topic is not None:
+        start_order = Question.objects.filter(topic=topic).count()
+    else:
+        start_order = control_test.questions.count()
+
+    for index, item in enumerate(parsed_questions, start=1):
+        question = Question.objects.create(
+            topic=topic,
+            control_test=control_test,
+            matn=item["matn"],
+            tartib=start_order + index,
+            faol=True
+        )
+
+        # Savol tarkibidagi matn, rasm va jadvallarni saqlash
+        QuestionContentBlock.objects.bulk_create([
+            QuestionContentBlock(
+                question=question,
+                turi=block["turi"],
+                matn=block.get("matn", ""),
+                rasm=block.get("rasm"),
+                rasm_turi=block.get("rasm_turi", ""),
+                tartib=block_index
+            )
+            for block_index, block in enumerate(
+                item["blocks"],
+                start=1
+            )
+        ])
+
+        # Javob variantlarini, shu jumladan rasmlarini saqlash
+        Answer.objects.bulk_create([
+            Answer(
+                question=question,
+                matn=answer["matn"],
+                togri=answer["togri"],
+                tartib=answer_index,
+                rasm=answer.get("rasm"),
+                rasm_turi=answer.get("rasm_turi", "")
+            )
+            for answer_index, answer in enumerate(
+                item["answers"],
+                start=1
+            )
+        ])
 
 # =====================================================
 # MAVZULAR ADMINI
@@ -300,18 +389,7 @@ class ControlTestAdmin(admin.ModelAdmin):
                                     faol=True
                                 )
 
-                                Answer.objects.bulk_create([
-                                    Answer(
-                                        question=question,
-                                        matn=answer["matn"],
-                                        togri=answer["togri"],
-                                        tartib=answer_index
-                                    )
-                                    for answer_index, answer in enumerate(
-                                        item["answers"],
-                                        start=1
-                                    )
-                                ])
+                                save_question_details(question, item)
 
                         messages.success(
                             request,
@@ -448,18 +526,7 @@ class QuestionAdmin(admin.ModelAdmin):
                                     faol=True
                                 )
 
-                                Answer.objects.bulk_create([
-                                    Answer(
-                                        question=question,
-                                        matn=answer["matn"],
-                                        togri=answer["togri"],
-                                        tartib=answer_index
-                                    )
-                                    for answer_index, answer in enumerate(
-                                        item["answers"],
-                                        start=1
-                                    )
-                                ])
+                                save_question_details(question, item)
 
                         messages.success(
                             request,

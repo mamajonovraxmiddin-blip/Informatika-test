@@ -1,5 +1,5 @@
 
-{% load static %}
+{% load static media_tags %}
 <!DOCTYPE html>
 <html lang="uz">
 <head>
@@ -45,8 +45,42 @@
                         SAVOL {{ forloop.counter }}
                     </div>
 
-                    <h3>{{ savol.matn }}</h3>
-
+                    <h3>
+                        {{ forloop.counter }}-savol
+                    </h3>
+                    
+                    <div class="question-content">
+                    
+                        {% for blok in savol.content_blocks.all %}
+                    
+                            {% if blok.turi == "text" %}
+                                <p style="margin-bottom:12px;">
+                                    {{ blok.matn|linebreaksbr }}
+                                </p>
+                    
+                            {% elif blok.turi == "image" %}
+                                {% if blok.rasm %}
+                                    <div style="margin:15px 0;">
+                                        <img
+                                            src="data:{{ blok.rasm_turi }};base64,{{ blok.rasm|b64encode }}"
+                                            alt="Savol rasmi"
+                                            style="max-width:100%; height:auto; border-radius:10px;"
+                                        >
+                                    </div>
+                                {% endif %}
+                    
+                            {% elif blok.turi == "table" %}
+                                <div style="max-width:100%; overflow-x:auto; margin:15px 0;">
+                                    {{ blok.matn|safe }}
+                                </div>
+                            {% endif %}
+                    
+                        {% empty %}
+                            <p>{{ savol.matn }}</p>
+                        {% endfor %}
+                    
+                    </div>
+                    
                     <div class="control-answer-list">
                         {% for javob in savol.aralash_javoblar %}
                             <label class="control-answer">
@@ -56,11 +90,22 @@
                                     value="{{ javob.id }}"
                                     required
                                 >
+                    
                                 <span class="answer-letter">
                                     {{ forloop.counter|add:"64"|stringformat:"c" }}
                                 </span>
+                    
                                 <span class="answer-text">
                                     {{ javob.matn }}
+                    
+                                    {% if javob.rasm %}
+                                        <br>
+                                        <img
+                                            src="data:{{ javob.rasm_turi }};base64,{{ javob.rasm|b64encode }}"
+                                            alt="Javob rasmi"
+                                            style="max-width:220px; height:auto; margin-top:8px; border-radius:8px;"
+                                        >
+                                    {% endif %}
                                 </span>
                             </label>
                         {% endfor %}

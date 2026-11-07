@@ -2,16 +2,32 @@
 from django.db import models
 
 
+SINF_CHOICES = [
+    (i, f"{i}-sinf") for i in range(5, 12)
+]
+
+
 class Topic(models.Model):
     sinf = models.PositiveSmallIntegerField(
         verbose_name="Sinf",
-        choices=[(i, f"{i}-sinf") for i in range(5, 12)]
+        choices=SINF_CHOICES
     )
-
-    nomi = models.CharField(max_length=200, verbose_name="Mavzu nomi")
-    tavsif = models.TextField(blank=True, verbose_name="Mavzu haqida")
-    tartib = models.PositiveIntegerField(default=1, verbose_name="Tartib raqami")
-    faol = models.BooleanField(default=True, verbose_name="Faol")
+    nomi = models.CharField(
+        max_length=200,
+        verbose_name="Mavzu nomi"
+    )
+    tavsif = models.TextField(
+        blank=True,
+        verbose_name="Mavzu haqida"
+    )
+    tartib = models.PositiveIntegerField(
+        default=1,
+        verbose_name="Tartib raqami"
+    )
+    faol = models.BooleanField(
+        default=True,
+        verbose_name="Faol"
+    )
     yaratilgan_vaqt = models.DateTimeField(
         auto_now_add=True,
         verbose_name="Yaratilgan vaqt"
@@ -43,20 +59,17 @@ class ControlTest(models.Model):
 
     sinf = models.PositiveSmallIntegerField(
         verbose_name="Sinf",
-        choices=[(i, f"{i}-sinf") for i in range(5, 12)]
+        choices=SINF_CHOICES
     )
-
     turi = models.CharField(
         max_length=20,
         choices=NAZORAT_TURLARI,
         verbose_name="Nazorat turi"
     )
-
     faol = models.BooleanField(
         default=True,
         verbose_name="Faol"
     )
-
     yaratilgan_vaqt = models.DateTimeField(
         auto_now_add=True,
         verbose_name="Yaratilgan vaqt"
@@ -86,7 +99,6 @@ class Question(models.Model):
         null=True,
         blank=True
     )
-
     control_test = models.ForeignKey(
         ControlTest,
         on_delete=models.CASCADE,
@@ -95,11 +107,20 @@ class Question(models.Model):
         null=True,
         blank=True
     )
-
-    matn = models.TextField(verbose_name="Savol matni")
-    tartib = models.PositiveIntegerField(default=1, verbose_name="Tartib")
-    faol = models.BooleanField(default=True, verbose_name="Faol")
-    yaratilgan_vaqt = models.DateTimeField(auto_now_add=True)
+    matn = models.TextField(
+        verbose_name="Savol matni"
+    )
+    tartib = models.PositiveIntegerField(
+        default=1,
+        verbose_name="Tartib"
+    )
+    faol = models.BooleanField(
+        default=True,
+        verbose_name="Faol"
+    )
+    yaratilgan_vaqt = models.DateTimeField(
+        auto_now_add=True
+    )
 
     class Meta:
         verbose_name = "Test savoli"
@@ -110,6 +131,55 @@ class Question(models.Model):
         return self.matn[:100]
 
 
+class QuestionContentBlock(models.Model):
+    BLOCK_TYPES = [
+        ("text", "Matn"),
+        ("image", "Rasm"),
+        ("table", "Jadval"),
+    ]
+
+    question = models.ForeignKey(
+        Question,
+        on_delete=models.CASCADE,
+        related_name="content_blocks",
+        verbose_name="Savol"
+    )
+    turi = models.CharField(
+        max_length=10,
+        choices=BLOCK_TYPES,
+        verbose_name="Blok turi"
+    )
+    matn = models.TextField(
+        blank=True,
+        verbose_name="Matn yoki jadval HTML"
+    )
+    rasm = models.BinaryField(
+        null=True,
+        blank=True,
+        verbose_name="Rasm fayli"
+    )
+    rasm_turi = models.CharField(
+        max_length=50,
+        blank=True,
+        verbose_name="Rasm formati"
+    )
+    tartib = models.PositiveIntegerField(
+        default=1,
+        verbose_name="Joylashuv tartibi"
+    )
+
+    class Meta:
+        verbose_name = "Savol tarkibi"
+        verbose_name_plural = "Savol tarkiblari"
+        ordering = ["tartib", "id"]
+
+    def __str__(self):
+        return (
+            f"{self.question_id}-savol — "
+            f"{self.get_turi_display()}"
+        )
+
+
 class Answer(models.Model):
     question = models.ForeignKey(
         Question,
@@ -117,20 +187,27 @@ class Answer(models.Model):
         related_name="answers",
         verbose_name="Savol"
     )
-
     matn = models.CharField(
         max_length=1000,
         verbose_name="Javob varianti"
     )
-
     togri = models.BooleanField(
         default=False,
         verbose_name="To‘g‘ri javob"
     )
-
     tartib = models.PositiveSmallIntegerField(
         default=1,
         verbose_name="Tartib"
+    )
+    rasm = models.BinaryField(
+        null=True,
+        blank=True,
+        verbose_name="Javob rasmi"
+    )
+    rasm_turi = models.CharField(
+        max_length=50,
+        blank=True,
+        verbose_name="Rasm formati"
     )
 
     class Meta:
@@ -147,11 +224,9 @@ class StudentResult(models.Model):
         max_length=200,
         verbose_name="O‘quvchining ism-familiyasi"
     )
-
     sinf = models.PositiveSmallIntegerField(
         verbose_name="Sinf"
     )
-
     control_test = models.ForeignKey(
         ControlTest,
         on_delete=models.CASCADE,
@@ -160,30 +235,24 @@ class StudentResult(models.Model):
         null=True,
         blank=True
     )
-
     topics = models.ManyToManyField(
         Topic,
         related_name="student_results",
         verbose_name="Tanlangan mavzular",
         blank=True
     )
-
     jami_savollar = models.PositiveIntegerField(
         verbose_name="Jami savollar"
     )
-
     togri_javoblar = models.PositiveIntegerField(
         verbose_name="To‘g‘ri javoblar"
     )
-
     xato_javoblar = models.PositiveIntegerField(
         verbose_name="Xato javoblar"
     )
-
     ball = models.PositiveSmallIntegerField(
         verbose_name="Natija (100 ballik tizim)"
     )
-
     yaratilgan_vaqt = models.DateTimeField(
         auto_now_add=True,
         verbose_name="Test topshirilgan vaqt"

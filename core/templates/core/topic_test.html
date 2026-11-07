@@ -1,5 +1,5 @@
 
-{% load static %}
+{% load static media_tags %}
 <!DOCTYPE html>
 <html lang="uz">
 <head>
@@ -50,9 +50,35 @@
                     <div class="topic-item" style="display:block; margin-bottom:18px;">
 
                         <h3 style="margin-bottom:15px;">
-                            {{ forloop.counter }}. {{ savol.matn }}
+                            {{ forloop.counter }}-savol
                         </h3>
-
+                        
+                        {% for blok in savol.content_blocks.all %}
+                            {% if blok.turi == "text" %}
+                                <p style="margin-bottom:12px;">
+                                    {{ blok.matn|linebreaksbr }}
+                                </p>
+                        
+                            {% elif blok.turi == "image" %}
+                                {% if blok.rasm %}
+                                    <div style="margin:15px 0;">
+                                        <img
+                                            src="data:{{ blok.rasm_turi }};base64,{{ blok.rasm|b64encode }}"
+                                            alt="Savol rasmi"
+                                            style="max-width:100%; height:auto; border-radius:10px;"
+                                        >
+                                    </div>
+                                {% endif %}
+                        
+                            {% elif blok.turi == "table" %}
+                                <div style="max-width:100%; overflow-x:auto; margin:15px 0;">
+                                    {{ blok.matn|safe }}
+                                </div>
+                            {% endif %}
+                        {% empty %}
+                            <p>{{ savol.matn }}</p>
+                        {% endfor %}
+                        
                         {% for javob in savol.aralash_javoblar %}
                             <label style="display:flex; align-items:flex-start; gap:12px; padding:10px 0; cursor:pointer;">
                                 <input
@@ -61,7 +87,17 @@
                                     value="{{ javob.id }}"
                                     style="margin-top:4px;"
                                 >
-                                <span>{{ javob.matn }}</span>
+                                <span>
+                                    {{ javob.matn }}
+                                    {% if javob.rasm %}
+                                        <br>
+                                        <img
+                                            src="data:{{ javob.rasm_turi }};base64,{{ javob.rasm|b64encode }}"
+                                            alt="Javob rasmi"
+                                            style="max-width:220px; height:auto; margin-top:8px; border-radius:8px;"
+                                        >
+                                    {% endif %}
+                                </span>
                             </label>
                         {% endfor %}
 

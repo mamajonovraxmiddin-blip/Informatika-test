@@ -2145,3 +2145,38 @@ small,
         transform: translateY(0);
     }
 }
+/* WORD'DAN IMPORT QILINGAN JADVALLAR */
+
+.question-table {
+    width: 100%;
+    border-collapse: collapse !important;
+    border: 2px solid #64748b !important;
+    margin: 18px 0;
+    background: #ffffff;
+    color: #1e293b;
+}
+
+.question-table td {
+    border: 1px solid #64748b !important;
+    padding: 10px 14px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.question-table tr:first-child td {
+    background: #e2e8f0;
+    font-weight: 700;
+}
+
+.question-table tr:nth-child(even) {
+    background: #f8fafc;
+}
+
+.question-content {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.question-content table {
+    display: table;
+}
